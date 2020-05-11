@@ -1,4 +1,13 @@
+CC=clang
+ifeq (, $(shell which clang))
+$(error "No clang in $(PATH), using gcc")
+CC=gcc
+endif
 
 all:
-	gcc client.c -o client
-	gcc server.c -o server
+	$(CC) src/client.c -o client.elf -I./include
+	$(CC) src/server.c -o server.elf -I./include
+
+clean:
+	rm server.elf
+	rm client.elf
